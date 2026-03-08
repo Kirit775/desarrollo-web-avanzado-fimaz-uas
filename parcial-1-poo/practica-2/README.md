@@ -53,7 +53,7 @@ echo $admin->getCorreo();  // macielalain@gmail.com
 // Método propio de Admin
 echo $admin->getRol();     // Administrador
 ```
-![Evidencia:](evidencia.jpg)
+![evidencia](https://github.com/user-attachments/assets/35c1ee38-18de-464b-b08e-4c345c280f0a)
 
 ## Resultado esperado
 
@@ -61,5 +61,6 @@ Al ejecutar el código se muestra:
 - Nombre del administrador
 - Correo del administrador
 - Rol: "Administrador"
+
 
 Demostrando que Admin hereda correctamente de Usuario y agrega funcionalidad propia.
