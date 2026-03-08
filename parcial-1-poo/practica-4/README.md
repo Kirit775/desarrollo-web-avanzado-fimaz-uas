@@ -85,4 +85,6 @@ Error controlado: Correo inválido: 'correo-invalido' no tiene un formato válid
 
 Código corre sin errores fatales  
 Tabla HTML se muestra correctamente  
+
 Excepción se captura y se muestra mensaje controlado
+![evidencia4](https://github.com/user-attachments/assets/bf12199c-390f-4433-82d0-49135f0dbac7)
