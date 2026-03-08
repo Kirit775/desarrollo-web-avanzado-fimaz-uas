@@ -29,6 +29,8 @@ Implementar herencia y manejo de excepciones validando el formato de correo elec
 ## Ejecutar
 
 Copia los archivos a `htdocs` (XAMPP).
+## Evidencia
+![evidencia3](https://github.com/user-attachments/assets/41423084-11db-46bd-a874-8799ad4d5b57)
 
 ## Ejemplo
 
@@ -39,4 +41,5 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage();
 }
+
 ```
