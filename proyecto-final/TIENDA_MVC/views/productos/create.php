@@ -7,13 +7,6 @@ require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <h2>Registrar producto</h2>
 
-<?php if (isset($_SESSION['error'])): ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <?= $_SESSION['error']; ?>
-        <?php unset($_SESSION['error']); ?>
-    </div>
-<?php endif; ?>
-
 <form action="index.php?route=productos/store" method="POST" enctype="multipart/form-data">
     
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?? ''; ?>">
