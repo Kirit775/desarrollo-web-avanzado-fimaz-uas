@@ -27,7 +27,18 @@ class AuthController
 
         if ($username === '' || $password === '') {
             $_SESSION['error'] = 'Todos los campos son obligatorios.';
-            header('Location: index.php?route=login');
+            header('Location: /TIENDA_MVC/login');
+            exit;
+        }
+
+        // Validación CSRF
+        if (
+            !isset($_POST['csrf_token']) ||
+            !isset($_SESSION['csrf_token']) ||
+            !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
+        ) {
+            $_SESSION['error'] = 'Token de seguridad inválido.';
+            header('Location: /TIENDA_MVC/login');
             exit;
         }
 
@@ -42,13 +53,17 @@ class AuthController
                 'nombre_completo' => $usuario['nombre_completo']
             ];
 
+            $fecha = date('d/m/Y H:i:s');
+            $linea = "[$fecha] Sesión iniciada por el usuario: " . $usuario['username'] . PHP_EOL;
+            file_put_contents(__DIR__ . '/../bitacora.log', $linea, FILE_APPEND);
+
             $_SESSION['success'] = 'Bienvenido, ' . $usuario['nombre_completo'] . '.';
-            header('Location: index.php?route=productos');
+            header('Location: /TIENDA_MVC/productos');
             exit;
         }
 
         $_SESSION['error'] = 'Credenciales incorrectas.';
-        header('Location: index.php?route=login');
+        header('Location: /TIENDA_MVC/login');
         exit;
     }
 
@@ -60,8 +75,15 @@ class AuthController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
+        if (isset($_SESSION['admin']['username'])) {
+            $fecha = date('d/m/Y H:i:s');
+            $linea = "[$fecha] Sesión cerrada por el usuario: " . $_SESSION['admin']['username'] . PHP_EOL;
+            file_put_contents(__DIR__ . '/../bitacora.log', $linea, FILE_APPEND);
+        }
+
         session_destroy();
-        header('Location: index.php?route=login');
+        header('Location: /TIENDA_MVC/login');
         exit;
     }
 }
