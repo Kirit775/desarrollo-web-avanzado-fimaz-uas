@@ -1,9 +1,8 @@
-
 <?php 
 /**
  * Vista del catálogo público de productos.
  * Muestra el buscador general, una cuadrícula de tarjetas (cards) responsivas
- * con imágenes y el control de navegación para la paginación de resultados.
+ * y el control de navegación para la paginación de resultados.
  */
 require_once __DIR__ . '/../layouts/header.php'; ?>
 
@@ -16,7 +15,6 @@ require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <form method="GET" action="index.php" class="row g-2 mb-4">
     <input type="hidden" name="route" value="catalogo">
-
     <div class="col-md-10">
         <input type="text" name="buscar" class="form-control"
                placeholder="Buscar por nombre o descripción"
@@ -31,12 +29,11 @@ require_once __DIR__ . '/../layouts/header.php'; ?>
     <?php if (!empty($productos)): ?>
         <?php foreach ($productos as $producto): ?>
             <div class="col-md-4 mb-4">
-                <div class="col card h-100 shadow-sm">
-                    <img src="views/img/<?= htmlspecialchars($producto['imagen']); ?>" 
-                         class="card-img-top" 
+                <div class="card h-100 shadow-sm">
+                    <img src="views/img/<?= htmlspecialchars($producto['imagen']); ?>"
+                         class="card-img-top"
                          alt="<?= htmlspecialchars($producto['nombre']); ?>"
                          style="height: 200px; object-fit: cover;">
-                    
                     <div class="card-body">
                         <h5 class="card-title"><?= htmlspecialchars($producto['nombre']); ?></h5>
                         <h6 class="card-subtitle mb-2 text-muted">SKU: <?= htmlspecialchars($producto['sku']); ?></h6>
@@ -54,26 +51,26 @@ require_once __DIR__ . '/../layouts/header.php'; ?>
     <?php endif; ?>
 </div>
 
+
 <?php if (isset($totalPaginas) && $totalPaginas > 1): ?>
-    <nav aria-label="Navegación de páginas" class="mt-4">
-        <ul class="pagination justify-content-center">
-            
-            <li class="page-item <?= ($paginaActual <= 1) ? 'disabled' : ''; ?>">
-                <a class="page-link" href="index.php?route=catalogo&pagina=<?= $paginaActual - 1; ?>&buscar=<?= urlencode($termino ?? ''); ?>">Anterior</a>
-            </li>
+    <div class="d-flex justify-content-center gap-2 mt-4">
+        <?php if ($paginaActual > 1): ?>
+            <a href="index.php?route=catalogo&pagina=<?= $paginaActual - 1; ?>&buscar=<?= urlencode($termino ?? ''); ?>" 
+               class="btn btn-outline-primary btn-sm">&laquo; Anterior</a>
+        <?php endif; ?>
 
-            <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-                <li class="page-item <?= ($paginaActual === $i) ? 'active' : ''; ?>">
-                    <a class="page-link" href="index.php?route=catalogo&pagina=<?= $i; ?>&buscar=<?= urlencode($termino ?? ''); ?>"><?= $i; ?></a>
-                </li>
-            <?php endfor; ?>
+        <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+            <a href="index.php?route=catalogo&pagina=<?= $i; ?>&buscar=<?= urlencode($termino ?? ''); ?>"
+               class="btn btn-sm <?= $paginaActual === $i ? 'btn-primary' : 'btn-outline-secondary'; ?>">
+                <?= $i; ?>
+            </a>
+        <?php endfor; ?>
 
-            <li class="page-item <?= ($paginaActual >= $totalPaginas) ? 'disabled' : ''; ?>">
-                <a class="page-link" href="index.php?route=catalogo&pagina=<?= $paginaActual + 1; ?>&buscar=<?= urlencode($termino ?? ''); ?>">Siguiente</a>
-            </li>
-
-        </ul>
-    </nav>
+        <?php if ($paginaActual < $totalPaginas): ?>
+            <a href="index.php?route=catalogo&pagina=<?= $paginaActual + 1; ?>&buscar=<?= urlencode($termino ?? ''); ?>"
+               class="btn btn-outline-primary btn-sm">Siguiente &raquo;</a>
+        <?php endif; ?>
+    </div>
 <?php endif; ?>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
