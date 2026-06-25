@@ -9,18 +9,12 @@ class ProductoModel
 {
     private PDO $conexion;
 
-    /**
-     * Establece la conexión interna con la base de datos MySQL al instanciar el modelo.
-     */
     public function __construct()
     {
         $db = new Database();
         $this->conexion = $db->connect();
     }
 
-    /**
-     * Obtiene todos los productos registrados ordenados de forma descendente por ID.
-     */
     public function obtenerTodos(): array
     {
         try {
@@ -32,9 +26,6 @@ class ProductoModel
         }
     }
 
-    /**
-     * Busca productos por coincidencia en nombre o descripción para la tienda pública.
-     */
     public function buscarPublico(string $termino = ''): array
     {
         try {
@@ -53,9 +44,6 @@ class ProductoModel
         }
     }
 
-    /**
-     * Recupera la información completa de un producto específico mediante su ID.
-     */
     public function obtenerPorId(int $id): ?array
     {
         try {
@@ -70,9 +58,6 @@ class ProductoModel
         }
     }
 
-    /**
-     * Verifica la existencia de un SKU en la base de datos para evitar registros duplicados.
-     */
     public function verificarSkuDuplicado(string $sku, int $idExcluir = 0): bool
     {
         try {
@@ -91,13 +76,11 @@ class ProductoModel
             $stmt->execute();
             return $stmt->fetchColumn() > 0;
         } catch (PDOException $e) {
-            return true; 
+            return true;
         }
     }
 
-    /**
-     * Inserta un nuevo producto usando transacciones seguras para proteger la consistencia.
-     */
+    // Inserta un nuevo producto en la base de datos
     public function crear(array $data): bool
     {
         try {
@@ -112,7 +95,7 @@ class ProductoModel
             $stmt->bindParam(':precio_compra', $data['precio_compra']);
             $stmt->bindParam(':precio_venta', $data['precio_venta']);
             $stmt->bindParam(':existencia', $data['existencia'], PDO::PARAM_INT);
-            $stmt->bindParam(':imagen', $data['imagen']); 
+            $stmt->bindParam(':imagen', $data['imagen']);
 
             $resultado = $stmt->execute();
             if (!$resultado) {
@@ -130,9 +113,7 @@ class ProductoModel
         }
     }
 
-    /**
-     * Actualiza las propiedades de un producto existente aplicando una transacción segura.
-     */
+    // Actualiza un producto existente
     public function actualizar(int $id, array $data): bool
     {
         try {
@@ -144,8 +125,7 @@ class ProductoModel
                         descripcion = :descripcion,
                         precio_compra = :precio_compra,
                         precio_venta = :precio_venta,
-                        existencia = :existencia,
-                        imagen = :imagen
+                        existencia = :existencia
                     WHERE id = :id';
 
             $stmt = $this->conexion->prepare($sql);
@@ -155,7 +135,6 @@ class ProductoModel
             $stmt->bindParam(':precio_compra', $data['precio_compra']);
             $stmt->bindParam(':precio_venta', $data['precio_venta']);
             $stmt->bindParam(':existencia', $data['existencia'], PDO::PARAM_INT);
-            $stmt->bindParam(':imagen', $data['imagen']); 
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
@@ -169,9 +148,7 @@ class ProductoModel
         }
     }
 
-    /**
-     * Borra físicamente un registro de producto confirmando que existan filas afectadas.
-     */
+    // Elimina un producto por ID
     public function eliminar(int $id): bool
     {
         try {
@@ -196,9 +173,7 @@ class ProductoModel
         }
     }
 
-    /**
-     * Recupera un lote segmentado de productos basado en un límite y un desplazamiento (Paginación).
-     */
+    // Obtiene productos paginados
     public function obtenerPorPagina(int $limite, int $offset): array
     {
         try {
@@ -213,9 +188,7 @@ class ProductoModel
         }
     }
 
-    /**
-     * Cuenta la cantidad total de registros de productos para calcular el número de páginas.
-     */
+    // Cuenta el total de productos para la paginación
     public function contarTotal(): int
     {
         try {
