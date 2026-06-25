@@ -1,66 +1,17 @@
 # Práctica: Herencia en PHP
 
 ## Objetivo
+# Herencia en PHP
 
-Implementar herencia en PHP creando una clase Admin que extiende de la clase Usuario.
-
-## Herencia Aplicada
-
-La clase `Admin` hereda de la clase `Usuario` usando la palabra clave `extends`.
-
-```php
-class Admin extends Usuario {
-    public function getRol() {
-        return "Administrador";
-    }
-}
-```
-
-Esto significa que Admin:
-- Hereda todos los atributos de Usuario (nombre, correo)
-- Hereda todos los métodos de Usuario (getNombre, getCorreo, setNombre, setCorreo)
-- Agrega su propio método getRol()
-
-## Diferencias entre Usuario y Admin
-
-| Característica | Usuario | Admin |
-|----------------|---------|-------|
-| Tipo | Clase base | Clase derivada |
-| Atributos | nombre, correo | Hereda: nombre, correo |
-| Métodos propios | Constructor, getters, setters | getRol() |
-| Puede usar | Sus propios métodos | Sus métodos + métodos de Usuario |
+`Admin` extiende de `Usuario`, heredando sus atributos y métodos, y agrega `getRol()`.
 
 ## Archivos
+- `Usuario.php` — clase base
+- `Admin.php` — clase derivada
+- `index.php` — prueba
+- `README.md` — este archivo
 
-- `Usuario.php` - Clase base
-- `Admin.php` - Clase que hereda de Usuario
-- `index.php` - Prueba de herencia
-- `README.md` - Este archivo
-
-## Cómo ejecutar
-
-Copia los archivos a `htdocs` (XAMPP).
-
-## Ejemplo de uso
-
-```php
-$admin = new Admin("Maciel Gonzalez", "macielalain@gmail.com");
-
-// Métodos heredados de Usuario
-echo $admin->getNombre();  // Maciel Gonzalez
-echo $admin->getCorreo();  // macielalain@gmail.com
-
-// Método propio de Admin
-echo $admin->getRol();     // Administrador
-```
-![evidencia](https://github.com/user-attachments/assets/35c1ee38-18de-464b-b08e-4c345c280f0a)
-
-## Resultado esperado
-
-Al ejecutar el código se muestra:
-- Nombre del administrador
-- Correo del administrador
-- Rol: "Administrador"
+## Ejecutar
+Copia los archivos a `htdocs` en XAMPP.
 
 
-Demostrando que Admin hereda correctamente de Usuario y agrega funcionalidad propia.
