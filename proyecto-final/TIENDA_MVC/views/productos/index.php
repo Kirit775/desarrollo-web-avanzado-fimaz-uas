@@ -14,20 +14,6 @@ require_once __DIR__ . '/../layouts/header.php'; ?>
     </div>
 </div>
 
-<?php if (isset($_SESSION['success'])): ?>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <?= $_SESSION['success']; ?>
-        <?php unset($_SESSION['success']); ?>
-    </div>
-<?php endif; ?>
-
-<?php if (isset($_SESSION['error'])): ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <?= $_SESSION['error']; ?>
-        <?php unset($_SESSION['error']); ?>
-    </div>
-<?php endif; ?>
-
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
         <tr>
